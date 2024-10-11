@@ -3,22 +3,21 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+//#include <string>
+
 using std::cout;
 using std::flush;
 using std::this_thread::sleep_for;
 using std::chrono::seconds;
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    if (temperature > 102 || temperature < 95) 
-    { 
+    if (temperature > 102 || temperature < 95){ 
         return printOutput("Temperature is critical!\n");
     }
-    else if (pulseRate < 60 || pulseRate > 100)
-    {
+    else if (pulseRate < 60 || pulseRate > 100){
         return printOutput("Pulse Rate is out of range!\n");
     }
-    else if (spo2 < 90) 
-    {
+    else if (spo2 < 90) {
         return printOutput("Oxygen Saturation out of range!\n");
     }
 
