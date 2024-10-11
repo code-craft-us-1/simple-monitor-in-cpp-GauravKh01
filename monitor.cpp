@@ -3,7 +3,10 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
+using std::cout;
+using std::flush;
+using std::this_thread::sleep_for;
+using std::chrono::seconds;
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
     if (temperature > 102 || temperature < 95) {
