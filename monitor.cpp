@@ -13,9 +13,11 @@ constexpr float MAX_PULSE = 100;
 constexpr float MIN_PULSE = 60;
 constexpr float MIN_SPO2 = 90;
 constexpr float MAX_SPO2 = 100;
-const std::string tempWarning = "Temperature is critical!\n";
+const char* tempWarning = "Temperature is critical!\n";
+const char* pulseWarning = "Pulse Rate is out of range!\n";
+const char* oxygenWarning = "Oxygen Saturation out of range!\n";
 
-bool isVitalNormal(float value, float max, float min, const std::string vitalWarning) {
+bool isVitalNormal(float value, float max, float min, const char* vitalWarning) {
     if (value < min || value > max) {
         printOutput(vitalWarning);
         return false;
@@ -25,8 +27,8 @@ bool isVitalNormal(float value, float max, float min, const std::string vitalWar
 
 int vitalsOk(float temperature, float pulseRate, float spo2) {
     bool isTempNormal = isVitalNormal(temperature, MAX_TEMP, MIN_TEMP, tempWarning);
-    bool isPulseNormal = isVitalNormal(pulseRate, MAX_PULSE, MIN_PULSE, "Pulse Rate is out of range!\n");
-    bool isOxygenNormal = isVitalNormal(spo2, MAX_SPO2, MIN_SPO2, "Oxygen Saturation out of range!\n");
+    bool isPulseNormal = isVitalNormal(pulseRate, MAX_PULSE, MIN_PULSE, pulseWarning);
+    bool isOxygenNormal = isVitalNormal(spo2, MAX_SPO2, MIN_SPO2, oxygenWarning);
 
     return  isTempNormal && isPulseNormal && isOxygenNormal;
 }
