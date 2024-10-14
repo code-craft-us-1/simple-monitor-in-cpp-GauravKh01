@@ -3,12 +3,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-//#include <string>
 
-using std::cout;
-using std::flush;
-using std::this_thread::sleep_for;
-using std::chrono::seconds;
+using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 constexpr float MAX_TEMPERATURE = 102;
 constexpr float MIN_TEMPERATURE = 95;
@@ -34,15 +30,13 @@ int vitalsOk(float temperature, float pulseRate, float spo2) {
     return  isTempNormal && isPulseNormal && isOxygenNormal;
 }
 
-int printOutput(std::string message)
+void printOutput(std::string message)
 {
     cout << message;
-
     for (int i = 0; i < 6; i++) {
         cout << "\r* " << flush;
         sleep_for(seconds(1));
         cout << "\r *" << flush;
         sleep_for(seconds(1));
     }
-    return 0;
 }
