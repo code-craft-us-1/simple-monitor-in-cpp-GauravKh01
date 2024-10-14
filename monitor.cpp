@@ -10,18 +10,28 @@ using std::flush;
 using std::this_thread::sleep_for;
 using std::chrono::seconds;
 
-int vitalsOk(float temperature, float pulseRate, float spo2) {
-    if (temperature > 102 || temperature < 95){ 
-        return printOutput("Temperature is critical!\n");
-    }
-    else if (pulseRate < 60 || pulseRate > 100){
-        return printOutput("Pulse Rate is out of range!\n");
-    }
-    else if (spo2 < 90) {
-        return printOutput("Oxygen Saturation out of range!\n");
-    }
+constexpr float MAX_TEMPERATURE = 102;
+constexpr float MIN_TEMPERATURE = 95;
+constexpr float MAX_PULSE_RATE = 100;
+constexpr float MIN_PULSE_RATE = 60;
+constexpr float MIN_SPO2 = 90;
+constexpr float MAX_SPO2 = 100;
 
-    return 1;
+bool isParametersNormal( float value, float max, float min, const char* vitalName) {
+    if (value < min || value > max) {
+        printOutput(vitalName);
+        return false;
+    }
+    return true;
+}
+
+int vitalsOk(float temperature, float pulseRate, float spo2) {
+
+    bool isTempNormal = isParametersNormal(temperature, MAX_TEMPERATURE, MIN_TEMPERATURE, "Temperature is critical!\n");
+    bool isPulseNormal = isParametersNormal(pulseRate, MAX_PULSE_RATE, MIN_PULSE_RATE, "Pulse Rate is out of range!\n");
+    bool isOxygenNormal = isParametersNormal(spo2, MAX_SPO2, MIN_SPO2, "Oxygen Saturation out of range!\n");
+
+    return  isTempNormal && isPulseNormal && isOxygenNormal;
 }
 
 int printOutput(std::string message)
